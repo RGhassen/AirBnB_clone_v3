@@ -2,11 +2,12 @@
 """
 Contains the class TestConsoleDocs
 """
+
+import console
+from contextlib import redirect_stdout
+import inspect
 import io
 import os
-from contextlib import redirect_stdout
-import console
-import inspect
 import pep8
 import unittest
 HBNBCommand = console.HBNBCommand
@@ -44,14 +45,14 @@ class TestConsoleDocs(unittest.TestCase):
 
 
 class TestConsoleCommands(unittest.TestCase):
-    """test console commands"""
+    """Class to test functionality of console commands"""
     @classmethod
     def setUpClass(cls):
-        """Create command console for test"""
+        """Create command console to test with"""
         cls.cmdcon = HBNBCommand()
 
     def setUp(self):
-        """Create in memory buffer for stdout"""
+        """Create in memory buffer to capture stdout"""
         self.output = io.StringIO()
 
     def tearDown(self):
@@ -93,7 +94,7 @@ class TestConsoleCommands(unittest.TestCase):
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
                      "Testing DBStorage")
     def test_do_create_db(self):
-        """Test do_create"""
+        """Test do_create method of console"""
         with redirect_stdout(self.output):
             self.cmdcon.onecmd('create')
             self.assertEqual(self.output.getvalue(),
